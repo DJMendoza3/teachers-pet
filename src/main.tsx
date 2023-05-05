@@ -8,17 +8,21 @@ import { Provider } from "react-redux";
 import { store } from "./redux/store";
 import "./index.css";
 
+import Main from "./layout/main/Main";
+
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Container setup={<Setup />}>
       <Navbar />
-      <Outlet />
+      <Main>
+        <Outlet />
+      </Main>
     </Container>,
     children: [
       {
         path: "/",
-        element: <h1>Teacher's Pet</h1>
+        element: <p>Home</p>
       }
     ]
   }
