@@ -9,6 +9,7 @@ import { store } from "./redux/store";
 import "./index.css";
 
 import Main from "./layout/main/Main";
+import TestDisplay from "./pages/generator/TestDisplay";
 
 const router = createBrowserRouter([
   {
@@ -40,7 +41,17 @@ const router = createBrowserRouter([
           },
           {
             path: "generator",
-            element: <p>Generator</p>,
+            element: <Outlet />,
+            children: [
+              {
+                path: "",
+                element: <p>Test Form</p>,
+              },
+              {
+                path: "test-display",
+                element: <TestDisplay />,
+              }
+            ]
           },
           {
             path: "tests",

@@ -10,8 +10,8 @@ interface SidebarProps {
 export default function Sidebar({ children }: SidebarProps) {
     const windowWidth = useAppSelector(state => state.window.width);
     return(
-        <aside>
+        <>
             {windowWidth < 768 ? <MobileSidebar>{children}</MobileSidebar> : <DesktopSidebar>{children}</DesktopSidebar>}
-        </aside>
+        </>
     )
 }

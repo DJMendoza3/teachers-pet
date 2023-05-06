@@ -4,7 +4,7 @@ interface DesktopSidebarProps {
 
 export default function DesktopSidebar({ children }: DesktopSidebarProps) {
     return(
-        <aside>
+        <aside className="">
             <h1>DesktopSidebar</h1>
         </aside>
     )
