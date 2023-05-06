@@ -94,13 +94,19 @@ function TestBlock({
   };
 
   //function for editing a test block, needs the field and the new value
-  const editTestBlock = () => {
+  const editTestBlock = (number: number, value: string) => {
+    console.log(number, value);
     setTestBlocks(
       testBlocks.map((testBlock, index) => {
         if (index === questionNumber - 1) {
           return {
             ...testBlock,
-            question: "Question Changed",
+            answers: testBlock.answers.map((answer, index) => {
+              if (index === number) {
+                return value;
+              }
+              return answer;
+            }),
           };
         }
         return testBlock;
@@ -110,8 +116,6 @@ function TestBlock({
 
   //transform answer item into input field for editing
 
-
-
   return (
     <div className="w-10/12 border-solid border-4 border-gray-600 rounded-lg p-8">
       <button
@@ -120,20 +124,62 @@ function TestBlock({
       >
         Delete Test Block
       </button>
-      <button
-        onClick={() => editTestBlock()}
-        className="text-gray-600 border-solid border-4 border-gray-600 p-2 rounded-lg"
-      >
-        Edit Test Block
-      </button>
       <h3 className="text-4xl">Question: {questionNumber}</h3>
       <p>{question}</p>
       <ol className="list-decimal">
         {answers.map((answer, index) => {
-          return <li key={index}>{answer}</li>;
+          return (
+            <EditableAnswerItem
+              index={index}
+              answer={answer}
+              editTestBlock={editTestBlock}
+            />
+          );
         })}
       </ol>
       <p>{correctAnswer}</p>
     </div>
+  );
+}
+interface EditableAnswerItemProps {
+  index: number;
+  answer: string;
+  editTestBlock: (number: number, value: string) => void;
+}
+
+function EditableAnswerItem({
+  index,
+  answer,
+  editTestBlock,
+}: EditableAnswerItemProps) {
+  const [editable, setEditable] = useState(false);
+  const [value, setValue] = useState(answer);
+
+  function toggleEditable() {
+    setEditable(!editable);
+  }
+
+  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+    setValue(e.target.value);
+  }
+
+  return (
+    <li key={index}>
+      {editable ? (
+        <>
+          <input type="text" defaultValue={answer} onChange={handleChange}/>
+          <button
+            onClick={() => {
+              toggleEditable();
+              editTestBlock(index, value);
+            }}
+          >
+            Save
+          </button>
+        </>
+      ) : (
+        <p onClick={() => toggleEditable()}>{answer}</p>
+      )}
+    </li>
   );
 }
