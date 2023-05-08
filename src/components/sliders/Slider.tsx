@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-interface GeneratorSettingsProps {
+interface SliderProps {
   min: number;
   max: number;
   steps: number;
@@ -8,23 +8,30 @@ interface GeneratorSettingsProps {
   id: string;
   label: string;
   description: string;
+  //selected: a react state
+  selected: React.Dispatch<React.SetStateAction<number>>;
 }
 
-export default function GeneratorSettings({
+export default function Slider({
   min = 0,
   max = 100,
   steps,
   color,
   id,
-  label,
+  label = "test label",
   description,
-}: GeneratorSettingsProps) {
+}: SliderProps) {
+  //state for the value of the slider, it should be changed to the value of the selected state so that it is accessable from the form component
   const [value, setValue] = useState(min);
 
   useEffect(() => {
     const slider = document.querySelector(`#slider-${id}`) as HTMLElement;
-    const sliderThumb = document.querySelector(`#slider-thumb-${id}`) as HTMLElement;
-    const sliderController = document.querySelector(`#slider-controller-${id}`) as HTMLElement;
+    const sliderThumb = document.querySelector(
+      `#slider-thumb-${id}`
+    ) as HTMLElement;
+    const sliderController = document.querySelector(
+      `#slider-controller-${id}`
+    ) as HTMLElement;
     const stepList: number[] = [];
     let sliderWidth = 0;
     let stepDistance = 0;
@@ -72,7 +79,7 @@ export default function GeneratorSettings({
 
   return (
     <>
-      <div>
+      <div className="flex justify-center">
         <p>{label}</p>
         <div>{value}</div>
       </div>
@@ -89,9 +96,16 @@ export default function GeneratorSettings({
           justifyContent: "center",
         }}
       >
-        <div id="test-id" />
-        <div id={`slider-thumb-${id}`} />
         <div
+          className="h-3 bg-gradient-to-r from-yellow-400 via-red-500 to-pink-500 rounded-md relative"
+          id="test-id"
+        />
+        <div
+          className="w-5 h-5 bg-blue-700 rounded-full absolute cursor-pointer"
+          id={`slider-thumb-${id}`}
+        />
+        <div
+          className="w-5 h-5 bg-blue-700 rounded-full absolute cursor-pointer"
           id={`slider-controller-${id}`}
           draggable="true"
           style={{ opacity: "0" }}

@@ -10,7 +10,10 @@ import {
   BooleanField,
   CheckboxField,
   TextAreaField,
+  SliderField,
 } from "lib/ezforms-react/jsforms.fields";
+
+import Slider from "components/sliders/Slider";
 
 import styles from "./forms.module.css";
 
@@ -105,7 +108,7 @@ interface MultiSelectFieldProps {
 
 export function MultiSelectInput({ field, setErrors }: MultiSelectFieldProps) {
   const [selected, setSelected] = useState<string[]>([]);
-  const inventory = useAppSelector((state) => state.item.inventory);
+  const options = field.options;
   const error = useValueValidation(field.name, field.validators);
 
   useEffect(() => {
@@ -154,16 +157,16 @@ export function MultiSelectInput({ field, setErrors }: MultiSelectFieldProps) {
           </div>
         </div>
         <ul className={styles["dropdown__options"]}>
-          {inventory.map((option) => {
-            const isSelected = selected.includes(option.name);
+          {options.map((option) => {
+            const isSelected = selected.includes(option);
 
             if (!isSelected) {
               return (
                 <li
                   className={styles["dropdown__option"]}
-                  onClick={() => toggleOption(option.name)}
+                  onClick={() => toggleOption(option)}
                 >
-                  <span>{option.name}</span>
+                  <span>{option}</span>
                 </li>
               );
             } else {
@@ -185,7 +188,7 @@ interface SelectFieldProps {
 //input field for single select component with dropdown and validation
 export function SelectInput({ field, setErrors }: SelectFieldProps) {
   const [selected, setSelected] = useState<string | undefined>(undefined);
-  const inventory = field.options;
+  const options = field.options;
   const error = useValueValidation(field.name, field.validators);
 
   useEffect(() => {
@@ -230,7 +233,7 @@ export function SelectInput({ field, setErrors }: SelectFieldProps) {
           </div>
         </div>
         <ul className={styles["dropdown__options"]}>
-          {inventory.map((option) => {
+          {options.map((option) => {
             const isSelected = selected === option;
 
             if (!isSelected) {
@@ -392,7 +395,44 @@ export function DateInput({ field, setErrors }: DateFieldProps) {
   return (
     <>
       <label htmlFor={field.name}>{field.label}</label>
-      <input type={field.type} name={field.name} id={field.name} value={new Date().toJSON().slice(0, 10)} min={field.minDate} max={field.maxDate} />
+      <input
+        type={field.type}
+        name={field.name}
+        id={field.name}
+        value={new Date().toJSON().slice(0, 10)}
+        min={field.minDate}
+        max={field.maxDate}
+      />
+      {error && <p>{error}</p>}
+    </>
+  );
+}
+
+interface SliderFieldProps {
+  field: SliderField;
+  setErrors: React.Dispatch<React.SetStateAction<{}>>;
+}
+
+export function SliderInput({ field, setErrors }: SliderFieldProps) {
+  const [selected, setSelected] = useState(0);
+  const error = useValueValidation(field.name, field.validators);
+
+  useEffect(() => {
+    if (error) {
+      setErrors((prev) => {
+        return { ...prev, [field.name]: true };
+      });
+    } else {
+      setErrors((prev) => {
+        return { ...prev, [field.name]: false };
+      });
+    }
+  }, [error, field.name, setErrors]);
+
+  return (
+    <>
+    <input type="hidden" id={field.name} name={field.name} value={selected} />
+      <Slider min={0} max={100} steps={10} color='#fefefe' id={field.name} label={field.name} description="test description" selected={selected}/>
       {error && <p>{error}</p>}
     </>
   );

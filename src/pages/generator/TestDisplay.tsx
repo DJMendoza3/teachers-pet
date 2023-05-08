@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 
-import Sidebar from "../../layout/sidebar/Sidebar";
+import Sidebar from "layout/sidebar/Sidebar";
 
 import GeneratorSettings from "./GeneratorSettings";
 

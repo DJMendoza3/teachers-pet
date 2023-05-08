@@ -3,6 +3,12 @@
     "target": "ESNext",
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
     "module": "ESNext",
+    "allowJs": false,
+    "rootDir": "src",
+    "baseUrl": ".",
+    "paths": {
+      "*": ["src/*"]
+    },
     "skipLibCheck": true,
 
     /* Bundler mode */
