@@ -1,5 +1,4 @@
-import { useState, useEffect } from "react";
-import { useAppSelector } from "redux/hooks";
+import React, { useState, useEffect, Fragment } from "react";
 import {
   TextField,
   NumberField,
@@ -144,9 +143,10 @@ export function MultiSelectInput({ field, setErrors }: MultiSelectFieldProps) {
       <div className={styles["dropdown"]}>
         <div className={styles["dropdown__selected"]}>
           <div>
-            {selected.map((item) => {
+            {selected.map((item, index) => {
               return (
                 <button
+                  key={index}
                   onClick={() => toggleOption(item)}
                   className={styles["selected-item"]}
                 >
@@ -157,12 +157,13 @@ export function MultiSelectInput({ field, setErrors }: MultiSelectFieldProps) {
           </div>
         </div>
         <ul className={styles["dropdown__options"]}>
-          {options.map((option) => {
+          {options.map((option, index) => {
             const isSelected = selected.includes(option);
 
             if (!isSelected) {
               return (
                 <li
+                  key={index}
                   className={styles["dropdown__option"]}
                   onClick={() => toggleOption(option)}
                 >
@@ -170,7 +171,7 @@ export function MultiSelectInput({ field, setErrors }: MultiSelectFieldProps) {
                 </li>
               );
             } else {
-              return <></>;
+              return <React.Fragment key={index}></React.Fragment>;
             }
           })}
         </ul>
@@ -233,12 +234,13 @@ export function SelectInput({ field, setErrors }: SelectFieldProps) {
           </div>
         </div>
         <ul className={styles["dropdown__options"]}>
-          {options.map((option) => {
+          {options.map((option, index) => {
             const isSelected = selected === option;
 
             if (!isSelected) {
               return (
                 <li
+                  key={index}
                   className={styles["dropdown__option"]}
                   onClick={() => toggleOption(option)}
                 >
@@ -246,7 +248,7 @@ export function SelectInput({ field, setErrors }: SelectFieldProps) {
                 </li>
               );
             } else {
-              return <></>;
+              return <React.Fragment key={index}></React.Fragment>;
             }
           })}
         </ul>

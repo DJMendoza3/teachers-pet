@@ -4,7 +4,7 @@ interface MobileSidebarProps {
 
 export default function MobileSidebar({ children }: MobileSidebarProps) {
     return(
-        <aside>
+        <aside className="fixed bottom-0 w-full">
             <h1>MobileSidebar</h1>
         </aside>
     )
