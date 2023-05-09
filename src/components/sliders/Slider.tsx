@@ -8,8 +8,9 @@ interface SliderProps {
   id: string;
   label: string;
   description: string;
-  //selected: a react state
-  selected: React.Dispatch<React.SetStateAction<number>>;
+  //state of the selected slider value
+  value: number;
+  setValue: React.Dispatch<React.SetStateAction<number>>;
 }
 
 export default function Slider({
@@ -20,9 +21,10 @@ export default function Slider({
   id,
   label = "test label",
   description,
+  value,
+  setValue,
 }: SliderProps) {
   //state for the value of the slider, it should be changed to the value of the selected state so that it is accessable from the form component
-  const [value, setValue] = useState(min);
 
   useEffect(() => {
     const slider = document.querySelector(`#slider-${id}`) as HTMLElement;

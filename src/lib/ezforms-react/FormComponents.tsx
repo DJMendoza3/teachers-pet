@@ -414,7 +414,7 @@ interface SliderFieldProps {
 }
 
 export function SliderInput({ field, setErrors }: SliderFieldProps) {
-  const [selected, setSelected] = useState(0);
+  const [value, setValue] = useState(0);
   const error = useValueValidation(field.name, field.validators);
 
   useEffect(() => {
@@ -431,8 +431,8 @@ export function SliderInput({ field, setErrors }: SliderFieldProps) {
 
   return (
     <>
-    <input type="hidden" id={field.name} name={field.name} value={selected} />
-      <Slider min={0} max={100} steps={10} color='#fefefe' id={field.name} label={field.name} description="test description" selected={selected}/>
+    <input type="hidden" id={field.name} name={field.name} value={value} />
+      <Slider min={0} max={100} steps={10} color='#fefefe' id={field.name} label={field.name} description="test description" value={value} setValue={setValue}/>
       {error && <p>{error}</p>}
     </>
   );
