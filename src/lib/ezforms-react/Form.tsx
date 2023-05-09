@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { GeneratorForm } from "./forms";
+import { GeneratorForm, LoginForm, RegisterForm  } from "./forms";
 import {
   TextInput,
   MultiSelectInput,
@@ -15,7 +15,7 @@ import styles from "./forms.module.css";
 
 //interface for props
 interface FormProps {
-  formStyle: GeneratorForm;
+  formStyle: GeneratorForm | LoginForm | RegisterForm;
 }
 
 export default function Form({ formStyle }: FormProps) {
@@ -30,10 +30,6 @@ export default function Form({ formStyle }: FormProps) {
       });
     });
   }, [formStyle]);
-
-  useEffect(() => {
-    console.log(errors);
-  }, [errors]);
 
   //update submittable(if applicable) on change
   useEffect(() => {
@@ -65,8 +61,8 @@ export default function Form({ formStyle }: FormProps) {
 
   return (
     <form id="input-form">
-      {formStyle.fields.map((field) => (
-        <div className={styles["form-control"]}>
+      {formStyle.fields.map((field, index) => (
+        <div className={styles["form-control"]} key={index}>
           {field.type === "text" ? (
             <TextInput field={field} setErrors={setErrors} />
           ) : field.type === "number" ? (

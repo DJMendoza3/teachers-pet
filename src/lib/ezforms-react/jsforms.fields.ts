@@ -167,6 +167,7 @@ class SliderField extends FormField {
 }
 
 export {
+  FormField,
   TextField,
   NumberField,
   DateField,

@@ -42,6 +42,14 @@ const requiredValidator = (value: string) => {
     return null;
 }
 
+const usernameValidator = (value: string) => {
+    const usernameRegex = /^[a-zA-Z0-9]+$/;
+    if (!usernameRegex.test(value)) {
+        return 'Invalid username';
+    }
+    return null;
+}
+
 const emailValidator = (value: string) => {
     const emailRegex =
           /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -59,6 +67,13 @@ const passwordValidator = (value: string) => {
     return null;
 }
 
+const passwordConfirmValidator = (value: string, password: string) => {
+    if (value !== password) {
+        return 'Passwords do not match';
+    }
+    return null;
+}
+
 const urlValidator = (value: string) => {
     const urlRegex = /^(https?:\/\/)?([\da-z.-]+)\.([a-z.]{2,6})([/\w .-]*)*\/?$/;
     if (!urlRegex.test(value)) {
@@ -67,4 +82,4 @@ const urlValidator = (value: string) => {
     return null;
 }
 
-export {lengthValidator, maxLengthValidator, requiredValidator, emailValidator, passwordValidator, numberRangeValidator, customRegexValidator, urlValidator};
+export {lengthValidator, maxLengthValidator, requiredValidator, emailValidator, passwordValidator, numberRangeValidator, customRegexValidator, urlValidator, usernameValidator, passwordConfirmValidator};

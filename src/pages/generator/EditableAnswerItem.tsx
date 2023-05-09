@@ -25,7 +25,7 @@ export default function EditableAnswerItem({
   }
 
   return (
-    <li key={index}>
+    <li>
       {editable ? (
         <>
           <input type="text" defaultValue={answer} onChange={handleChange} />

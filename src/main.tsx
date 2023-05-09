@@ -10,6 +10,7 @@ import "./index.css";
 
 import Main from "layout/main/Main";
 import TestDisplay from "pages/generator/TestDisplay";
+import Login from "pages/login/login";
 
 const router = createBrowserRouter([
   {
@@ -23,6 +24,14 @@ const router = createBrowserRouter([
       {
         path: "/",
         element: <p>Home</p>,
+      },
+      {
+        path: "/login",
+        element: <Login />,
+      },
+      {
+        path: "/register",
+        element: <Login />,
       },
       {
         path: "/portal",
