@@ -15,21 +15,21 @@ import styles from "./forms.module.css";
 
 //interface for props
 interface FormProps {
-  formStyle: GeneratorForm | LoginForm | RegisterForm;
+  form: GeneratorForm | LoginForm | RegisterForm;
 }
 
-export default function Form({ formStyle }: FormProps) {
+export default function Form({ form }: FormProps) {
   const [errors, setErrors] = useState({});
   const [submittable, setSubmittable] = useState(true);
 
   //build error object
   useEffect(() => {
-    formStyle.fields.forEach((field) => {
+    form.fields.forEach((field) => {
       setErrors((prev) => {
         return { ...prev, [field.name]: false };
       });
     });
-  }, [formStyle]);
+  }, [form]);
 
   //update submittable(if applicable) on change
   useEffect(() => {
@@ -61,7 +61,7 @@ export default function Form({ formStyle }: FormProps) {
 
   return (
     <form id="input-form">
-      {formStyle.fields.map((field, index) => (
+      {form.fields.map((field, index) => (
         <div className={styles["form-control"]} key={index}>
           {field.type === "text" ? (
             <TextInput field={field} setErrors={setErrors} />

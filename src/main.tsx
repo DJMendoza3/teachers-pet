@@ -10,7 +10,10 @@ import "./index.css";
 
 import Main from "layout/main/Main";
 import TestDisplay from "pages/generator/TestDisplay";
-import Login from "pages/login/login";
+import Credentials from "pages/credentials/Credentials";
+import Form from "lib/ezforms-react/Form";
+
+import { LoginForm, RegisterForm } from "lib/ezforms-react/forms";
 
 const router = createBrowserRouter([
   {
@@ -26,12 +29,18 @@ const router = createBrowserRouter([
         element: <p>Home</p>,
       },
       {
-        path: "/login",
-        element: <Login />,
-      },
-      {
-        path: "/register",
-        element: <Login />,
+        path: "/credentials",
+        element: <Credentials />,
+        children: [
+          {
+            path: "",
+            element: <Form form={LoginForm} />,
+          },
+          {
+            path: "register",
+            element: <Form form={RegisterForm} />,
+          },
+        ],
       },
       {
         path: "/portal",

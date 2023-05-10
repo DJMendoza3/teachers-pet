@@ -7,6 +7,9 @@ export default {
       transitionProperty: {
         'width': 'width',
       },
+      backgroundImage: {
+        'login-bg': "url('/src/assets/images/login_bg.png')",
+      },
     },
   },
   plugins: [],
