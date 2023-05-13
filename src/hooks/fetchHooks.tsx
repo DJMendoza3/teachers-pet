@@ -5,10 +5,10 @@ export const useGetRequest = () => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  const getRequest = async (to: string) => {
+  const getRequest = async (url: string) => {
     setLoading(true);
     try {
-      const response = await fetch(`${FETCH_URL}${to}`, {
+      const response = await fetch(FETCH_URL + url, {
         method: "GET",
         credentials: "include",
         headers: {
@@ -35,16 +35,13 @@ export const usePostRequest = () => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  const postRequest = async (to: string, body: any) => {
+  const postRequest = async (url: string, body: any) => {
     setLoading(true);
     try {
-      const response = await fetch(`${FETCH_URL}${to}`, {
+      const response = await fetch(FETCH_URL + url, {
         method: "POST",
         credentials: "include",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(body),
+        body: body,
       });
       const data = await response.json();
       if (!response.ok) {
@@ -53,6 +50,7 @@ export const usePostRequest = () => {
 
       return data;
     } catch (err: any) {
+      console.log(err);
       setError(err.message);
       setLoading(false);
     }
@@ -66,10 +64,10 @@ export const usePutRequest = () => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  const putRequest = async (to: string, body: any) => {
+  const putRequest = async (url: string, body: any) => {
     setLoading(true);
     try {
-      const response = await fetch(`${FETCH_URL}${to}`, {
+      const response = await fetch(FETCH_URL + url, {
         method: "PUT",
         credentials: "include",
         headers: {
@@ -97,10 +95,10 @@ export const useDeleteRequest = () => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  const deleteRequest = async (to: string) => {
+  const deleteRequest = async (url: string) => {
     setLoading(true);
     try {
-      const response = await fetch(`${FETCH_URL}${to}`, {
+      const response = await fetch(FETCH_URL + url, {
         method: "DELETE",
         credentials: "include",
         headers: {

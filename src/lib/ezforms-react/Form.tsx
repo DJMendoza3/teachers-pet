@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { GeneratorForm, LoginForm, RegisterForm  } from "./forms";
+import { GeneratorForm, LoginForm, RegisterForm } from "./forms";
 import {
   TextInput,
   MultiSelectInput,
@@ -7,6 +7,7 @@ import {
   NumberInput,
   SelectInput,
   SliderInput,
+  SubmitInput,
 } from "./FormComponents";
 
 import styles from "./forms.module.css";
@@ -16,9 +17,10 @@ import styles from "./forms.module.css";
 //interface for props
 interface FormProps {
   form: GeneratorForm | LoginForm | RegisterForm;
+  submit: () => void;
 }
 
-export default function Form({ form }: FormProps) {
+export default function Form({ form, submit }: FormProps) {
   const [errors, setErrors] = useState({});
   const [submittable, setSubmittable] = useState(true);
 
@@ -61,7 +63,7 @@ export default function Form({ form }: FormProps) {
 
   return (
     <form id="input-form">
-      {form.fields.map((field, index) => (
+      {form.fields.map((field, index: number) => (
         <div className={styles["form-control"]} key={index}>
           {field.type === "text" ? (
             <TextInput field={field} setErrors={setErrors} />
@@ -75,14 +77,13 @@ export default function Form({ form }: FormProps) {
             <SelectInput field={field} setErrors={setErrors} />
           ) : field.type === "slider" ? (
             <SliderInput field={field} setErrors={setErrors} />
+          ) : field.type === "submit" ? (
+            <SubmitInput field={field} setErrors={setErrors} errors={errors} />
           ) : (
             <></>
           )}
         </div>
       ))}
-      <button type="submit" disabled={!submittable}>
-        Submit
-      </button>
     </form>
   );
 }

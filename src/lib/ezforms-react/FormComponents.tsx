@@ -10,6 +10,7 @@ import {
   CheckboxField,
   TextAreaField,
   SliderField,
+  SubmitField,
 } from "lib/ezforms-react/jsforms.fields";
 
 import Slider from "components/sliders/Slider";
@@ -43,7 +44,7 @@ const useValueValidation = (id: string, validators: any[]) => {
 
 interface TextFieldProps {
   field: TextField;
-  setErrors: React.Dispatch<React.SetStateAction<{}>>;
+  setErrors: React.Dispatch<React.SetStateAction<object>>;
 }
 
 export function TextInput({ field, setErrors }: TextFieldProps) {
@@ -74,7 +75,7 @@ export function TextInput({ field, setErrors }: TextFieldProps) {
 
 interface NumberFieldProps {
   field: NumberField;
-  setErrors: React.Dispatch<React.SetStateAction<{}>>;
+  setErrors: React.Dispatch<React.SetStateAction<object>>;
 }
 
 export function NumberInput({ field, setErrors }: NumberFieldProps) {
@@ -102,7 +103,7 @@ export function NumberInput({ field, setErrors }: NumberFieldProps) {
 
 interface MultiSelectFieldProps {
   field: MultiSelectField;
-  setErrors: React.Dispatch<React.SetStateAction<{}>>;
+  setErrors: React.Dispatch<React.SetStateAction<object>>;
 }
 
 export function MultiSelectInput({ field, setErrors }: MultiSelectFieldProps) {
@@ -183,7 +184,7 @@ export function MultiSelectInput({ field, setErrors }: MultiSelectFieldProps) {
 
 interface SelectFieldProps {
   field: SelectField;
-  setErrors: React.Dispatch<React.SetStateAction<{}>>;
+  setErrors: React.Dispatch<React.SetStateAction<object>>;
 }
 
 //input field for single select component with dropdown and validation
@@ -260,7 +261,7 @@ export function SelectInput({ field, setErrors }: SelectFieldProps) {
 
 interface FileFieldProps {
   field: FileField;
-  setErrors: React.Dispatch<React.SetStateAction<{}>>;
+  setErrors: React.Dispatch<React.SetStateAction<object>>;
 }
 
 export function FileInput({ field, setErrors }: FileFieldProps) {
@@ -289,7 +290,7 @@ export function FileInput({ field, setErrors }: FileFieldProps) {
 
 interface TextAreaFieldProps {
   field: TextAreaField;
-  setErrors: React.Dispatch<React.SetStateAction<{}>>;
+  setErrors: React.Dispatch<React.SetStateAction<object>>;
 }
 
 export function TextAreaInput({ field, setErrors }: TextAreaFieldProps) {
@@ -318,7 +319,7 @@ export function TextAreaInput({ field, setErrors }: TextAreaFieldProps) {
 
 interface CheckboxFieldProps {
   field: CheckboxField;
-  setErrors: React.Dispatch<React.SetStateAction<{}>>;
+  setErrors: React.Dispatch<React.SetStateAction<object>>;
 }
 
 export function CheckboxInput({ field, setErrors }: CheckboxFieldProps) {
@@ -347,7 +348,7 @@ export function CheckboxInput({ field, setErrors }: CheckboxFieldProps) {
 
 interface BooleanFieldProps {
   field: BooleanField;
-  setErrors: React.Dispatch<React.SetStateAction<{}>>;
+  setErrors: React.Dispatch<React.SetStateAction<object>>;
 }
 
 export function BooleanInput({ field, setErrors }: BooleanFieldProps) {
@@ -376,7 +377,7 @@ export function BooleanInput({ field, setErrors }: BooleanFieldProps) {
 
 interface DateFieldProps {
   field: DateField;
-  setErrors: React.Dispatch<React.SetStateAction<{}>>;
+  setErrors: React.Dispatch<React.SetStateAction<object>>;
 }
 
 export function DateInput({ field, setErrors }: DateFieldProps) {
@@ -412,7 +413,7 @@ export function DateInput({ field, setErrors }: DateFieldProps) {
 
 interface SliderFieldProps {
   field: SliderField;
-  setErrors: React.Dispatch<React.SetStateAction<{}>>;
+  setErrors: React.Dispatch<React.SetStateAction<object>>;
 }
 
 export function SliderInput({ field, setErrors }: SliderFieldProps) {
@@ -436,6 +437,30 @@ export function SliderInput({ field, setErrors }: SliderFieldProps) {
     <input type="hidden" id={field.name} name={field.name} value={value} />
       <Slider min={0} max={100} steps={10} color='#fefefe' id={field.name} label={field.name} description="test description" value={value} setValue={setValue}/>
       {error && <p>{error}</p>}
+    </>
+  );
+}
+
+interface SubmitFieldProps {
+  field: SubmitField;
+  setErrors: React.Dispatch<React.SetStateAction<object>>;
+  errors: object;
+}
+
+export function SubmitInput({ field, setErrors, errors }: SubmitFieldProps) {
+  const [submittable, setSubmittable] = useState(true);
+
+  useEffect(() => {
+    if (Object.values(errors).includes(true)) {
+      setSubmittable(false);
+    } else {
+      setSubmittable(true);
+    }
+  }, [errors]);
+
+  return (
+    <>
+      <button type="submit" disabled={!submittable}>{field.label}</button>
     </>
   );
 }

@@ -10,6 +10,7 @@ import {
   BooleanField,
   DateField,
   SliderField,
+  SubmitField,
 } from "lib/ezforms-react/jsforms.fields";
 import {
   maxLengthValidator,
@@ -36,6 +37,7 @@ class LoginForm extends JSForm {
       [requiredValidator, passwordValidator],
       "password"
     ),
+    new SubmitField("submit", "Submit", "POST", "/api/register", {}, [], "submit"),
   ];
 }
 
@@ -65,6 +67,7 @@ class RegisterForm extends JSForm {
     ),
     new TextField("name", "Name", "name", [requiredValidator], "name"),
     new FileField("profile", "Profile Image", [requiredValidator], "profile"),
+    new SubmitField("submit", "Submit", "POST", "/api/register", {}, [], "submit"),
   ];
 }
 class GeneratorForm extends JSForm {

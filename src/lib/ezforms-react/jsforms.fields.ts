@@ -166,6 +166,28 @@ class SliderField extends FormField {
   }
 }
 
+class SubmitField extends FormField {
+  public type = "submit";
+  public requestType: string;
+  public requestUrl: string;
+  public requestParams: any;
+
+  constructor(
+    name: string,
+    label: string,
+    requestType: string,
+    requestUrl: string,
+    requestParams: any,
+    validators: any[] = [],
+    id: string
+  ) {
+    super(name, label, validators, id);
+    this.requestType = requestType;
+    this.requestUrl = requestUrl;
+    this.requestParams = requestParams;
+  }
+}
+
 export {
   FormField,
   TextField,
@@ -178,4 +200,5 @@ export {
   TextAreaField,
   FileField,
   SliderField,
+  SubmitField,
 };
