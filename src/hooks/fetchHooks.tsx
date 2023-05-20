@@ -35,20 +35,25 @@ export const usePostRequest = () => {
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  const postRequest = async (url: string, body: any) => {
+  const postRequest = async (url: string, body: any, callback?: () => void) => {
     setLoading(true);
     try {
       const response = await fetch(FETCH_URL + url, {
         method: "POST",
-        credentials: "include",
+        headers: {
+          "Content-Type": "application/json",
+        },
         body: body,
       });
       const data = await response.json();
       if (!response.ok) {
-        throw new Error(data.message);
+        throw new Error(data.value);
       }
-
-      return data;
+      if(callback) {
+        callback();
+      } else {
+        return data;
+      }
     } catch (err: any) {
       console.log(err);
       setError(err.message);

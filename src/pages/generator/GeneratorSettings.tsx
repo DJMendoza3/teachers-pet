@@ -1,8 +1,8 @@
 import Form from "lib/ezforms-react/Form";
-import { GeneratorForm } from "lib/ezforms-react/forms";
+import { GeneratorForm } from "components/forms/forms";
 
 export default function GeneratorSettings() {
   return (
-    <Form formStyle={GeneratorForm}/>
+    <Form form={GeneratorForm}/>
   );
 }

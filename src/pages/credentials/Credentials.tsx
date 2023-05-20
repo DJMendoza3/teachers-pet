@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { Outlet } from "react-router-dom";
 import { Link } from "react-router-dom";
-import { usePostRequest, useGetRequest } from "hooks/fetchHooks";
+import { usePostRequest } from "hooks/fetchHooks";
 import { useNavigate } from "react-router-dom";
 
 import apple_logo from "src/assets/images/apple-logo.png";
@@ -16,17 +16,29 @@ export default function Credentials() {
     useEffect(() => {
         document.addEventListener('submit', (event) => {
             event.preventDefault();
-            const form = document.querySelector('form');
-            const formData = new FormData(form as HTMLFormElement);
 
             if(location.pathname.split('/')[2] === 'register') {
-                postRequest('register', formData).then((data) => {
-                    if(data) {
-                        navigate('/portal');
-                    }
+                const username = (document.getElementById('username') as HTMLInputElement).value;
+                const name = (document.getElementById('name') as HTMLInputElement).value;
+                const password = (document.getElementById('password') as HTMLInputElement).value;
+
+                const payload = JSON.stringify({
+                    username: username,
+                    name: name,
+                    password: password
+                });
+                postRequest('register', payload, () => {
+                    navigate('/portal');
                 });
             } else {
-                postRequest('login', formData).then((data) => {
+                const username = (document.getElementById('username') as HTMLInputElement).value;
+                const password = (document.getElementById('password') as HTMLInputElement).value;
+
+                const payload = JSON.stringify({
+                    username: username,
+                    password: password
+                });
+                postRequest('login', payload).then((data) => {
                     if(data) {
                         navigate('/portal');
                     }

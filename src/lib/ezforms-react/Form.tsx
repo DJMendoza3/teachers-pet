@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { GeneratorForm, LoginForm, RegisterForm } from "./forms";
+import { GeneratorForm, LoginForm, RegisterForm } from "components/forms/forms";
 import {
   TextInput,
   MultiSelectInput,

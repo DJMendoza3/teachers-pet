@@ -1,4 +1,4 @@
-import { JSForm } from "./jsforms";
+import { JSForm } from "lib/ezforms-react/jsforms";
 import {
   TextField,
   TextAreaField,
@@ -18,7 +18,7 @@ import {
   passwordValidator,
   usernameValidator,
   passwordConfirmValidator,
-} from "./jsforms.validators";
+} from "../../lib/ezforms-react/jsforms.validators";
 
 class LoginForm extends JSForm {
   static formType = "login";

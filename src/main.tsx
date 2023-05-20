@@ -13,7 +13,7 @@ import TestDisplay from "pages/generator/TestDisplay";
 import Credentials from "pages/credentials/Credentials";
 import Form from "lib/ezforms-react/Form";
 
-import { LoginForm, RegisterForm } from "lib/ezforms-react/forms";
+import { LoginForm, RegisterForm } from "components/forms/forms";
 
 const router = createBrowserRouter([
   {
