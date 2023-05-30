@@ -8,10 +8,13 @@ import { Provider } from "react-redux";
 import { store } from "redux/store";
 import "./index.css";
 
+import LandingPage from "pages/landing/LandingPage";
+import Home from "pages/landing/Home";
 import Main from "layout/main/Main";
 import TestDisplay from "pages/generator/TestDisplay";
 import Credentials from "pages/credentials/Credentials";
 import Form from "lib/ezforms-react/Form";
+import TestCreator from "pages/test/TestCreator";
 
 import { LoginForm, RegisterForm } from "components/forms/forms";
 
@@ -26,7 +29,13 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <p>Home</p>,
+        element: <LandingPage />,
+        children: [
+          {
+            path: "",
+            element: <Home />,
+          },
+        ],
       },
       {
         path: "/credentials",
@@ -63,7 +72,7 @@ const router = createBrowserRouter([
             children: [
               {
                 path: "",
-                element: <p>Test Form</p>,
+                element: <TestCreator />,
               },
               {
                 path: "test-display",
