@@ -5,7 +5,7 @@ type ButtonProps = {
 
 export function ButtonSecondary({children, onClick}: ButtonProps) {
     return (
-        <button onClick={onClick} className="bg-secondary text-white rounded-md p-2">{children}</button>
+        <button onClick={onClick} className="bg-secondary text-white rounded-full w-40 p-2">{children}</button>
     )
 }
 

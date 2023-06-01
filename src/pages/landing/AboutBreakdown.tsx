@@ -18,7 +18,7 @@ export default function AboutBreakdown() {
     }
 
     return (
-        <div>
+        <section className='min-h-3/4'>
             <h3>Check Out Our Features?</h3>
             <div className="flex max-w-6xl m-auto justify-between">
                 <ButtonSecondary onClick={() => SelectFeature(features.tests)}>Tests</ButtonSecondary>
@@ -33,6 +33,6 @@ export default function AboutBreakdown() {
                 </div>
                 <img src="" alt="" />
             </div>
-        </div>
+        </section>
     )
 }

@@ -3,7 +3,7 @@ import { Outlet } from "react-router-dom"
 
 export default function LandingPage() {
     return (
-        <div>
+        <div className="w-full">
             <TopbarNav />
             <Outlet />
         </div>

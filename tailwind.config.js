@@ -9,10 +9,16 @@ export default {
       'secondary': '#E5E5E5',
       'danger': '#e3342f',
     }),
+    minHeight: {
+      '1/4': '25vh',
+      '1/2': '50vh',
+      '3/4': '75vh',
+    },
     extend: {
       colors: {
         'primary': '#7791a1',
         'secondary': '#E5E5E5',
+        'accent': '#5c616e',
         'danger': '#e3342f',
       },
       transitionProperty: {
