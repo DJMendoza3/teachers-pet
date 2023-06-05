@@ -161,7 +161,7 @@ export default function TestBlock({
           </button>
         </>
       ) : (
-        <p onClick={() => toggleQuestionEditable()}>{text}</p>
+        <p onClick={() => toggleQuestionEditable()}>Question: {text}</p>
       )}
       <ol className="list-decimal">
         {answers.map((answer, index) => {

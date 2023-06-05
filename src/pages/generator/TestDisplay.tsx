@@ -27,6 +27,16 @@ export default function TestDisplay() {
     });
   }, []);
 
+  //function for saving the test
+  const saveTest = () => {
+    const test = {
+      testName: 'new test',
+      text: 'testing',
+      questions: testBlocks,
+    };
+    postRequest("test", JSON.stringify(test));
+  };
+
   //function for adding a new text block to the test
   const addTestBlock = () => {
     setTestBlocks([
@@ -50,6 +60,7 @@ export default function TestDisplay() {
     <>
       <section className="flex-1 max-h-screen overflow-auto flex flex-col gap-4 items-center">
         <h1 className="text-5xl">{testName}</h1>
+        <button onClick={() => saveTest()} className="text-gray-600 border-solid border-4 border-gray-600 p-2 rounded-lg self-end">Save</button>
         <p>{testText}</p>
         {testBlocks.map((testBlock, index) => {
           return (
