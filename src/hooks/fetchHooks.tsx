@@ -10,7 +10,6 @@ export const useGetRequest = () => {
     try {
       const response = await fetch(FETCH_URL + url, {
         method: "GET",
-        credentials: "include",
         headers: {
           "Content-Type": "application/json",
         },

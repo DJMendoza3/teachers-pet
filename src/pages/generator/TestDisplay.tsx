@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import React from "react";
 import Sidebar from "layout/sidebar/Sidebar";
+import { usePostRequest, useGetRequest } from "hooks/fetchHooks";
+import { Test, Question, Answer } from "shared/types";
 
 import GeneratorSettings from "./GeneratorSettings";
 import TestBlock from "./TestBlock";
@@ -8,22 +10,30 @@ import TestBlock from "./TestBlock";
 //convert test blocks to classes later on
 
 export default function TestDisplay() {
-  const [testBlocks, setTestBlocks] = useState([
-    {
-      question: "What is the capital of the United States?",
-      answers: ["Washington D.C.", "New York City", "Los Angeles", "Chicago"],
-      correctAnswer: "Washington D.C.",
-    },
-  ]);
+  const [testName, setTestName] = useState("Test Name");
+  const [testText, setTestText] = useState("Test Text");
+  const [testBlocks, setTestBlocks] = useState<Question[]>([]);
+  const { postRequest } = usePostRequest();
+  const { getRequest } = useGetRequest();
+
+  useEffect(() => {
+    getRequest("test/1").then((data) => {
+      if(data === undefined || data === null) {
+        return;
+      }
+      setTestName(data.value.testName);
+      setTestText(data.value.testText);
+      setTestBlocks(data.value.questions);
+    });
+  }, []);
 
   //function for adding a new text block to the test
   const addTestBlock = () => {
     setTestBlocks([
       ...testBlocks,
       {
-        question: "Question Here",
-        answers: ["Answers"],
-        correctAnswer: "Correct Answer",
+        text: "Question Here",
+        answers: [{text: "Answer Here", isCorrect: false}],
       },
     ]);
   };
@@ -39,7 +49,8 @@ export default function TestDisplay() {
   return (
     <>
       <section className="flex-1 max-h-screen overflow-auto flex flex-col gap-4 items-center">
-        <h1 className="text-5xl">Auto Generated Name Of Test</h1>
+        <h1 className="text-5xl">{testName}</h1>
+        <p>{testText}</p>
         {testBlocks.map((testBlock, index) => {
           return (
             <React.Fragment key={index}>
@@ -68,9 +79,8 @@ export default function TestDisplay() {
                 </button>
               )}
               <TestBlock
-                question={testBlock.question}
+                text={testBlock.text}
                 answers={testBlock.answers}
-                correctAnswer={testBlock.correctAnswer}
                 questionNumber={index + 1}
                 testBlocks={testBlocks}
                 setTestBlocks={setTestBlocks}

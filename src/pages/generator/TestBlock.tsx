@@ -1,38 +1,25 @@
 import { useState } from "react";
 import React from "react";
 import EditableAnswerItem from "./EditableAnswerItem";
+import { Test, Question, Answer } from "shared/types";
 
 type TestBlockProps = {
-  question: string;
-  answers: string[];
-  correctAnswer: string;
+  text: string;
+  answers: Answer[];
   questionNumber: number;
-  testBlocks: {
-    question: string;
-    answers: string[];
-    correctAnswer: string;
-  }[];
-  setTestBlocks: React.Dispatch<
-    React.SetStateAction<
-      {
-        question: string;
-        answers: string[];
-        correctAnswer: string;
-      }[]
-    >
-  >;
+  testBlocks: Question[];
+  setTestBlocks: React.Dispatch<React.SetStateAction<Question[]>>;
 };
 
 export default function TestBlock({
-  question,
+  text,
   answers,
-  correctAnswer,
   questionNumber,
   testBlocks,
   setTestBlocks,
 }: TestBlockProps) {
   const [questionEditable, setQuestionEditable] = useState(false);
-  const [questionValue, setQuestionValue] = useState(question);
+  const [questionValue, setQuestionValue] = useState(text);
 
   //function for deleting a test block
   const deleteTestBlock = () => {
@@ -42,31 +29,34 @@ export default function TestBlock({
   };
 
   //function for editing the question in the test block
-  const editQuestion = (value: string) => {
+  const editQuestion = () => {
     setTestBlocks(
       testBlocks.map((testBlock, index) => {
         if (index === questionNumber - 1) {
           return {
-            ...testBlock,
-            question: value,
+            text: questionValue,
+            answers: testBlock.answers,
           };
         }
         return testBlock;
       })
     );
+    toggleQuestionEditable();
   };
 
   //function for editing an answer in the test block, needs the answer number and the new value
-  const editAnswer = (number: number, value: string) => {
-    console.log(number, value);
+  const editAnswer = (answerNumber: number, newValue: string) => {
     setTestBlocks(
       testBlocks.map((testBlock, index) => {
         if (index === questionNumber - 1) {
           return {
-            ...testBlock,
+            text: testBlock.text,
             answers: testBlock.answers.map((answer, index) => {
-              if (index === number) {
-                return value;
+              if (index === answerNumber) {
+                return {
+                  text: newValue,
+                  isCorrect: answer.isCorrect,
+                };
               }
               return answer;
             }),
@@ -92,8 +82,11 @@ export default function TestBlock({
       testBlocks.map((testBlock, index) => {
         if (index === questionNumber - 1) {
           return {
-            ...testBlock,
-            answers: [...testBlock.answers, "New Answer"],
+            text: testBlock.text,
+            answers: [
+              ...testBlock.answers,
+              { text: "Answer here", isCorrect: false },
+            ],
           };
         }
         return testBlock;
@@ -102,14 +95,14 @@ export default function TestBlock({
   };
 
   //delete an answer from the test block
-  const deleteAnswer = (number: number) => {
+  const deleteAnswer = (answerNumber: number) => {
     setTestBlocks(
       testBlocks.map((testBlock, index) => {
         if (index === questionNumber - 1) {
           return {
-            ...testBlock,
+            text: testBlock.text,
             answers: testBlock.answers.filter(
-              (answer, index) => index !== number
+              (answer, index) => index !== answerNumber
             ),
           };
         }
@@ -119,13 +112,21 @@ export default function TestBlock({
   };
 
   //function for editing the correct answer in the test block
-  const editCorrectAnswer = (value: string) => {
+  const editCorrectAnswer = (answerNumber: number) => {
     setTestBlocks(
       testBlocks.map((testBlock, index) => {
         if (index === questionNumber - 1) {
           return {
-            ...testBlock,
-            correctAnswer: value,
+            text: testBlock.text,
+            answers: testBlock.answers.map((answer, index) => {
+              if (index === answerNumber - 1) {
+                return {
+                  text: answer.text,
+                  isCorrect: !answer.isCorrect,
+                };
+              }
+              return answer;
+            }),
           };
         }
         return testBlock;
@@ -149,18 +150,18 @@ export default function TestBlock({
       <h3 className="text-4xl">Question: {questionNumber}</h3>
       {questionEditable ? (
         <>
-          <input type="text" defaultValue={question} onChange={handleChange} />
+          <input type="text" defaultValue={text} onChange={handleChange} />
           <button
             onClick={() => {
               toggleQuestionEditable();
-              editQuestion(questionValue);
+              editQuestion();
             }}
           >
             Save
           </button>
         </>
       ) : (
-        <p onClick={() => toggleQuestionEditable()}>{question}</p>
+        <p onClick={() => toggleQuestionEditable()}>{text}</p>
       )}
       <ol className="list-decimal">
         {answers.map((answer, index) => {
@@ -168,7 +169,7 @@ export default function TestBlock({
             <React.Fragment key={index}>
               <EditableAnswerItem
                 index={index}
-                answer={answer}
+                answer={answer.text}
                 editAnswer={editAnswer}
                 deleteAnswer={deleteAnswer}
               />
@@ -183,14 +184,19 @@ export default function TestBlock({
         Add Answer
       </button>
       <p>Correct Answer:</p>
+      <p>{answers.map((answer, index) => {
+        if (answer.isCorrect) {
+          return answer.text
+        }
+      })}</p>
       <select
         className="border-solid border-4 border-gray-600 p-2 rounded-lg"
-        onChange={(e) => editCorrectAnswer(e.target.value)}
+        onChange={(e) => editCorrectAnswer(parseInt(e.target.value))}
       >
         {answers.map((answer, index) => {
           return (
             <option key={index} value={index}>
-              {answer}
+              {answer.text}
             </option>
           );
         })}

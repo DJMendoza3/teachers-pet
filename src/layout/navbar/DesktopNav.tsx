@@ -7,7 +7,8 @@ import apple_logo from "assets/images/apple-logo.png";
 export default function DesktopNav() {
   const [navOpen, setNavOpen] = useState(false);
   const location = useLocation();
-  const currentLocation = location.pathname.split("/").pop();
+  //get second part of pathname
+  const currentLocation = location.pathname.split("/")[2];
 
   const toggleNav = () => {
     setNavOpen(!navOpen);
