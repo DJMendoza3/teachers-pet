@@ -1,6 +1,7 @@
 import { FormField } from "lib/ezforms-react/jsforms.fields";
 
-export interface IForm {
+export type IForm = {
     formType: string;
+    style: string;
     fields: FormField[];
 }

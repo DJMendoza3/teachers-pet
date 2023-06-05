@@ -1,3 +1,6 @@
+import theme from "./generateStyles";
+import styles from "./forms.module.css";
+
 import { useEffect, useState } from "react";
 import { GeneratorForm, LoginForm, RegisterForm } from "components/forms/forms";
 import {
@@ -9,13 +12,11 @@ import {
   SliderInput,
   SubmitInput,
 } from "./FormComponents";
-
-import styles from "./forms.module.css";
 //A generic form component that takes in a list of fields and creates the inputs and labels via map probebly
 //use a generic fetch component that modulates depending on the inputs
 
 //interface for props
-interface FormProps {
+type FormProps = {
   form: GeneratorForm | LoginForm | RegisterForm;
   submit: () => void;
 }
@@ -23,6 +24,11 @@ interface FormProps {
 export default function Form({ form, submit }: FormProps) {
   const [errors, setErrors] = useState({});
   const [submittable, setSubmittable] = useState(true);
+  const [config, setConfig] = useState({});
+
+  useEffect(() => {
+    setConfig(theme(form.style));
+  }, [form]);
 
   //build error object
   useEffect(() => {
@@ -64,7 +70,7 @@ export default function Form({ form, submit }: FormProps) {
   return (
     <form id="input-form">
       {form.fields.map((field, index: number) => (
-        <div className={styles["form-control"]} key={index}>
+        <div className={styles["form-control"]} style={config.form} key={index}>
           {field.type === "text" ? (
             <TextInput field={field} setErrors={setErrors} />
           ) : field.type === "number" ? (

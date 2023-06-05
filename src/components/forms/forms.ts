@@ -22,6 +22,7 @@ import {
 
 class LoginForm extends JSForm {
   static formType = "login";
+  static style = "credentials";
   static fields = [
     new TextField(
       "username",
@@ -72,6 +73,7 @@ class RegisterForm extends JSForm {
 }
 class GeneratorForm extends JSForm {
   static formType = "generator";
+  style = "default";
   static fields = [
     new SelectField(
       "subject",
