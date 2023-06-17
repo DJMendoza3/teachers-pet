@@ -7,7 +7,7 @@ export default function Navbar() {
     const windowWidth = useAppSelector(state => state.window.width);
     return(
         <>
-            {windowWidth < 768 ? <MobileNav /> : <DesktopNav />}
+            {windowWidth < 768 ? <MobileNav /> : <><DesktopNav /><div className="w-40"/></>}
         </>
     );
 }

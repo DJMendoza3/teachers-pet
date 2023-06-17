@@ -15,7 +15,7 @@ export default function DesktopNav() {
   };
 
   return (
-    <nav className="flex flex-col items-center w-40 h-screen overflow-hidden text-gray-400 bg-gray-900">
+    <nav className="flex flex-col items-center w-40 h-screen overflow-hidden text-gray-400 bg-gray-900 fixed">
       <Link className="flex items-center w-full px-3 mt-3" to="#">
         <img src={apple_logo} alt="" className="w-7"/>
         <span className="ml-2 text-sm font-bold">Teachers Pet</span>
