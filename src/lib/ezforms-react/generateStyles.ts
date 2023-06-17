@@ -2,9 +2,7 @@ import config from "ezforms.config.js";
 
 export default (styleName: string): any => {
   const displayTheme = config.themes["default"];
-  console.log("displayTheme", displayTheme);
   const theme = config.themes[styleName];
-  console.log("theme", theme);
   
 
   if(theme !== "default" && theme) {

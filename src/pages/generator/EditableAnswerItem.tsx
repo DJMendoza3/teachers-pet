@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Question, Answer } from "shared/types";
 
 interface EditableAnswerItemProps {
   index: number;

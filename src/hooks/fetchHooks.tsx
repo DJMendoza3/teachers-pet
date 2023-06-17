@@ -13,6 +13,7 @@ export const useGetRequest = () => {
         headers: {
           "Content-Type": "application/json",
         },
+        credentials: "include",
       });
       const data = await response.json();
       if (!response.ok) {
@@ -42,6 +43,41 @@ export const usePostRequest = () => {
         headers: {
           "Content-Type": "application/json",
         },
+        body: body,
+      });
+      const data = await response.json();
+      if (!response.ok) {
+        throw new Error(data.value);
+      }
+      if(callback) {
+        callback();
+      } else {
+        return data;
+      }
+    } catch (err: any) {
+      console.log(err);
+      setError(err.message);
+      setLoading(false);
+    }
+    setLoading(false);
+  };
+
+  return { error, loading, postRequest };
+};
+
+export const usePostWithCredentialsRequest = () => {
+  const [error, setError] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  const postRequest = async (url: string, body: any, callback?: () => void) => {
+    setLoading(true);
+    try {
+      const response = await fetch(FETCH_URL + url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
         body: body,
       });
       const data = await response.json();
