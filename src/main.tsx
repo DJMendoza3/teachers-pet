@@ -15,6 +15,7 @@ import TestDisplay from "pages/generator/TestDisplay";
 import Credentials from "pages/credentials/Credentials";
 import Form from "lib/ezforms-react/Form";
 import TestCreator from "pages/test/TestCreator";
+import UnderConstruction from "pages/underConstruction/UnderConstruction";
 
 import { LoginForm, RegisterForm } from "components/forms/forms";
 
@@ -79,6 +80,22 @@ const router = createBrowserRouter([
                 element: <TestDisplay />,
               }
             ]
+          },
+          {
+            path: "grading",
+            element: <UnderConstruction />,
+          },
+          {
+            path: "lessons",
+            element: <UnderConstruction />,
+          },
+          {
+            path: "documents",
+            element: <UnderConstruction />,
+          },
+          {
+            path: "students",
+            element: <UnderConstruction />,
           },
           {
             path: "tests",

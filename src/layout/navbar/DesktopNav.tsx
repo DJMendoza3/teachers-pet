@@ -24,7 +24,7 @@ export default function DesktopNav() {
         <div className="flex flex-col items-center w-full mt-3 border-t border-gray-700">
           <Link
             className={`flex items-center w-full h-12 px-3 mt-2 text-gray-200 ${currentLocation === 'home' && 'bg-gray-700'} rounded`}
-            to="#"
+            to="/portal"
           >
             <svg
               className="w-6 h-6 stroke-current"
@@ -106,7 +106,7 @@ export default function DesktopNav() {
         <div className="flex flex-col items-center w-full mt-2 border-t border-gray-700">
           <Link
             className={`flex items-center w-full h-12 px-3 mt-2 text-gray-200 ${currentLocation === 'grading' && 'bg-gray-700'} rounded`}
-            to="#"
+            to="grading"
           >
             <svg
               className="w-6 h-6 stroke-current"
@@ -127,7 +127,7 @@ export default function DesktopNav() {
           </Link>
           <Link
             className={`flex items-center w-full h-12 px-3 mt-2 text-gray-200 ${currentLocation === 'lessonPlans' && 'bg-gray-700'} rounded`}
-            to="#"
+            to="lessons"
           >
             <svg
               className="w-6 h-6 stroke-current"
@@ -147,7 +147,7 @@ export default function DesktopNav() {
           </Link>
           <Link
             className={`flex items-center w-full h-12 px-3 mt-2 text-gray-200 ${currentLocation === 'documents' && 'bg-gray-700'} rounded`}
-            to="#"
+            to="documents"
           >
             <svg
               className="w-6 h-6 stroke-current"

@@ -6,52 +6,31 @@ import Dropdown from "components/dropdowns/Dropdown";
 export default function GeneratorForm() {
   const [value, setValue] = useState(0);
   return (
-    <form className="grid grid-cols-3">
-      <div>
-        <h4>Name</h4>
-        <p>Name and descriptin for the test.</p>
-      </div>
+    <form className="grid grid-cols-2 [&>h4]:text-lg [&>h4]:font-bold">
+      <h4>Test Name</h4>
       <input type="text" className="" />
+      <h4>Test Description</h4>
       <input type="text" className="" />
       <div>
         <h4>Test group</h4>
         <p>What test group do you want this to be under</p>
       </div>
-      <div className="col-span-2">
-        <Dropdown />
-      </div>
+      <Dropdown label="Test Group"  options={["temp test group"]}/>
       <div>
         <h4>Test type</h4>
         <p>What type of test do you want to create?</p>
       </div>
 
-      <div className="col-span-2">
-        <Dropdown />
-      </div>
-      <div>
-        <h4>Subject Matter</h4>
-        <p>What subject matter do you want to test?</p>
-      </div>
-
-      <div className="col-span-1">
-        <Dropdown />
-      </div>
-      <div className="col-span-1">
-        <Dropdown />
-      </div>
-      <div>
-        <h4>Grade Level</h4>
-        <p>What grade level do you want to test?</p>
-      </div>
-
-      <div className="col-span-2">
-        <Dropdown />
-      </div>
-      <div>
-        <h4>Questions Settings</h4>
-        <p>How many questions and answers do you want to generate?</p>
-      </div>
+      <Dropdown label="Test Type" options={["Multiple Choice", "Short Answer"]}/>
+      <h4>Subject</h4>
+      <Dropdown label="Subject" options={["Math", "Science", "History"]}/>
+      <h4>Focus Area</h4>
+      <input type="text" />
+      <h4>Grade Level</h4>
+      <input type="number" min={0} max={12} />
+      <h4>Questions Amount</h4>
       <input type="number" />
+      <h4>Answer Amount</h4>
       <input type="number" />
       <div>
         <h4>Difficulty</h4>
