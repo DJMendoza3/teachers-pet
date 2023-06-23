@@ -6,3 +6,18 @@
 * {
     /* outline: solid red 1px; */
 }
+
+@layer utilities {
+    .scrollbar::-webkit-scrollbar {
+        width: 0.5rem;
+    }
+    .scrollbar::-webkit-scrollbar-track {
+        background: #f1f1f1;
+    }
+    .scrollbar::-webkit-scrollbar-thumb {
+        background: #888;
+    }
+    .scrollbar::-webkit-scrollbar-thumb:hover {
+        background: #555;
+    }
+}
