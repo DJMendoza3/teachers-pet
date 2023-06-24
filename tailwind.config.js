@@ -26,6 +26,7 @@ export default {
       },
       backgroundImage: {
         'login-bg': "url('/src/assets/images/login_bg.png')",
+        'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))'
       },
     },
   },

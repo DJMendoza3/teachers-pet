@@ -18,15 +18,15 @@ export default function AboutBreakdown() {
     }
 
     return (
-        <section className='min-h-3/4'>
-            <h3>Check Out Our Features?</h3>
+        <section className='min-h-3/4 bg-slate-300'>
+            <h3 className='text-center max-w-lg text-3xl m-auto'>Generate everything from testing materials to planning and classroom materials</h3>
             <div className="flex max-w-6xl m-auto justify-between">
                 <ButtonSecondary onClick={() => SelectFeature(features.tests)}>Tests</ButtonSecondary>
                 <ButtonSecondary onClick={() => SelectFeature(features.lessonPlans)}>Lesson Plans</ButtonSecondary>
                 <ButtonSecondary onClick={() => SelectFeature(features.assignments)}>Assignments</ButtonSecondary>
                 <ButtonSecondary onClick={() => SelectFeature(features.grades)}>Grades</ButtonSecondary>
             </div>
-            <div className="flex">
+            <div className="flex max-w-6xl m-auto">
                 <div>
                     <h4>{selectedFeature.name}</h4>
                     <p>{selectedFeature.description}</p>
