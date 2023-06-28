@@ -1,5 +1,6 @@
-import {useState} from 'react';
+import {useState, useEffect} from 'react';
 
+import AboutUiComponent from './AboutUiComponent';
 import { ButtonSecondary } from 'components/buttons/Buttons';
 
 export default function AboutBreakdown() {
@@ -18,20 +19,18 @@ export default function AboutBreakdown() {
     }
 
     return (
-        <section className='min-h-3/4 bg-slate-300'>
-            <h3 className='text-center max-w-lg text-3xl m-auto'>Generate everything from testing materials to planning and classroom materials</h3>
-            <div className="flex max-w-6xl m-auto justify-between">
-                <ButtonSecondary onClick={() => SelectFeature(features.tests)}>Tests</ButtonSecondary>
-                <ButtonSecondary onClick={() => SelectFeature(features.lessonPlans)}>Lesson Plans</ButtonSecondary>
-                <ButtonSecondary onClick={() => SelectFeature(features.assignments)}>Assignments</ButtonSecondary>
-                <ButtonSecondary onClick={() => SelectFeature(features.grades)}>Grades</ButtonSecondary>
+        <section id='about-brakedown' className='min-h-3/4 bg-slate-300 flex p-36'>
+            <div className=" max-w-md m-auto font-baskerville text-4xl [&>button]:mb-10">
+                <ButtonSecondary className="w-full" onMouseEnter={() => SelectFeature(features.tests)}>Tests</ButtonSecondary>
+                <ButtonSecondary className="w-full" onMouseEnter={() => SelectFeature(features.lessonPlans)}>Lesson Plans</ButtonSecondary>
+                <ButtonSecondary className="w-full" onMouseEnter={() => SelectFeature(features.assignments)}>Assignments</ButtonSecondary>
+                <ButtonSecondary className="w-full" onMouseEnter={() => SelectFeature(features.grades)}>Grades</ButtonSecondary>
             </div>
-            <div className="flex max-w-6xl m-auto">
+            <div className="w-full min-h-1/2 rounded-md p-10 m-auto bg-blue-200 flex">
                 <div>
-                    <h4>{selectedFeature.name}</h4>
-                    <p>{selectedFeature.description}</p>
+                    <h5>{selectedFeature.name}</h5>
                 </div>
-                <img src="" alt="" />
+                <AboutUiComponent width="w-10" height="h-10"> {selectedFeature.name} </AboutUiComponent>
             </div>
         </section>
     )

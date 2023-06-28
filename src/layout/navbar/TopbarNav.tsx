@@ -1,7 +1,5 @@
 import { useAppSelector } from "redux/hooks";
 
-import apple_logo from "assets/images/apple-logo.png";
-
 export default function TopbarNav() {
   const windowWidth = useAppSelector((state) => state.window.width);
 
@@ -11,10 +9,9 @@ export default function TopbarNav() {
         elmnt && elmnt.scrollIntoView({ behavior: "smooth" });
     }
   return (
-    <nav className="flex bg-primary w-full h-12 items-center drop-shadow-lg fixed justify-center gap-20">
+    <nav className="flex w-full bg-gray-200 h-12 items-center fixed justify-center gap-20 z-40  font-baskerville">
       <div className="flex w-60">
-        <img src={apple_logo} alt="" className="h-12" />
-        <h1>Teachers Pet</h1>
+        <h1 className=" text-2xl font-bold">Teachers Pet</h1>
       </div>
       {windowWidth > 768 ? (
         <ul className="flex gap-10 text-center">

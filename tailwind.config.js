@@ -13,6 +13,10 @@ export default {
       '1/4': '25vh',
       '1/2': '50vh',
       '3/4': '75vh',
+      'jumbotron': 'calc(100vh - 64px - 2rem)',
+    },
+    fontFamily: {
+      'baskerville': ['baskerville', 'sans-serif'],
     },
     extend: {
       colors: {
@@ -27,6 +31,9 @@ export default {
       backgroundImage: {
         'login-bg': "url('/src/assets/images/login_bg.png')",
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))'
+      },
+      dropShadow: {
+        'cartoon': '6px 6px 0px rgba(0, 0, 0, .75)',
       },
     },
   },
