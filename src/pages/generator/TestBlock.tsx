@@ -35,8 +35,8 @@ export default function TestBlock({
       testBlocks.map((testBlock, index) => {
         if (index === questionNumber - 1) {
           return {
-            text: questionValue,
-            answers: testBlock.answers,
+            QuestionText: questionValue,
+            Answers: testBlock.Answers,
           };
         }
         return testBlock;
@@ -51,12 +51,12 @@ export default function TestBlock({
       testBlocks.map((testBlock, index) => {
         if (index === questionNumber - 1) {
           return {
-            text: testBlock.text,
-            answers: testBlock.answers.map((answer, index) => {
+            QuestionText: testBlock.QuestionText,
+            Answers: testBlock.Answers.map((answer, index) => {
               if (index === answerNumber) {
                 return {
-                  text: newValue,
-                  isCorrect: answer.isCorrect,
+                  AnswerText: newValue,
+                  IsCorrect: answer.IsCorrect,
                 };
               }
               return answer;
@@ -83,10 +83,10 @@ export default function TestBlock({
       testBlocks.map((testBlock, index) => {
         if (index === questionNumber - 1) {
           return {
-            text: testBlock.text,
-            answers: [
-              ...testBlock.answers,
-              { text: "Answer here", isCorrect: false },
+            QuestionText: testBlock.QuestionText,
+            Answers: [
+              ...testBlock.Answers,
+              { AnswerText: "Answer here", IsCorrect: false },
             ],
           };
         }
@@ -101,8 +101,8 @@ export default function TestBlock({
       testBlocks.map((testBlock, index) => {
         if (index === questionNumber - 1) {
           return {
-            text: testBlock.text,
-            answers: testBlock.answers.filter(
+            QuestionText: testBlock.QuestionText,
+            Answers: testBlock.Answers.filter(
               (answer, index) => index !== answerNumber
             ),
           };
@@ -118,12 +118,12 @@ export default function TestBlock({
       testBlocks.map((testBlock, index) => {
         if (index === questionNumber - 1) {
           return {
-            text: testBlock.text,
-            answers: testBlock.answers.map((answer, index) => {
+            QuestionText: testBlock.QuestionText,
+            Answers: testBlock.Answers.map((answer, index) => {
               if (index === answerNumber - 1) {
                 return {
-                  text: answer.text,
-                  isCorrect: !answer.isCorrect,
+                  AnswerText: answer.AnswerText,
+                  IsCorrect: !answer.IsCorrect,
                 };
               }
               return answer;
@@ -165,7 +165,7 @@ export default function TestBlock({
             <li key={index}>
               <EditableAnswerItem
                 index={index}
-                answer={answer.text}
+                answer={answer.AnswerText}
                 editAnswer={editAnswer}
                 deleteAnswer={deleteAnswer}
               />
@@ -181,8 +181,8 @@ export default function TestBlock({
       </button>
       <p>Correct Answer:</p>
       <p>{answers.map((answer, index) => {
-        if (answer.isCorrect) {
-          return answer.text
+        if (answer.IsCorrect) {
+          return answer.AnswerText
         }
       })}</p>
       <select
@@ -192,7 +192,7 @@ export default function TestBlock({
         {answers.map((answer, index) => {
           return (
             <option key={index} value={index}>
-              {answer.text}
+              {answer.AnswerText}
             </option>
           );
         })}

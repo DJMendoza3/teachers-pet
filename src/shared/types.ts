@@ -1,16 +1,18 @@
 type Test = {
-    text: string;
-    questions: Question[];
+    TestName: string;
+    TestDescription: string;
+    Topic: string;
+    Questions: Question[];
 };
 
 type Question = {
-    text: string;
-    answers: Answer[];
+    QuestionText: string;
+    Answers: Answer[];
 };
 
 type Answer = {
-    text: string;
-    isCorrect: boolean;
+    AnswerText: string;
+    IsCorrect: boolean;
 };
 
 export type { Test, Question, Answer };

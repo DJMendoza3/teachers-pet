@@ -1,12 +1,47 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { usePostRequest } from "hooks/fetchHooks";
 
 import Slider from "components/sliders/Slider";
 import Dropdown from "components/dropdowns/Dropdown";
 
 export default function GeneratorForm() {
   const [value, setValue] = useState(0);
+  const { postRequest } = usePostRequest();
+
+  useEffect(() => {
+    const form = document.getElementById("generator-form") as HTMLFormElement;
+    form.addEventListener("submit", (e) => {
+      e.preventDefault();
+      const test = {
+        testName: "Math test",
+        testDescription: "This is a test",
+        testGroup: "string",
+        subject: "Math",
+        topic: "Geometry",
+        grade: 4,
+        difficulty: 4,
+        numberOfQuestions: 3,
+        numberOfAnswers: 4,
+      };
+
+      fetch("http://127.0.0.1:5295/api/generate/test", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(test),
+      })
+        .then((res) => res.json())
+        .then((data) => console.log(data))
+        .catch((err) => console.log(err));
+    });
+  }, []);
+
   return (
-    <form className="grid grid-cols-2 [&>h4]:text-lg [&>h4]:font-bold">
+    <form
+      id="generator-form"
+      className="grid grid-cols-2 [&>h4]:text-lg [&>h4]:font-bold"
+    >
       <h4>Test Name</h4>
       <input type="text" className="" />
       <h4>Test Description</h4>
@@ -15,15 +50,18 @@ export default function GeneratorForm() {
         <h4>Test group</h4>
         <p>What test group do you want this to be under</p>
       </div>
-      <Dropdown label="Test Group"  options={["temp test group"]}/>
+      <Dropdown label="Test Group" options={["temp test group"]} />
       <div>
         <h4>Test type</h4>
         <p>What type of test do you want to create?</p>
       </div>
 
-      <Dropdown label="Test Type" options={["Multiple Choice", "Short Answer"]}/>
+      <Dropdown
+        label="Test Type"
+        options={["Multiple Choice", "Short Answer"]}
+      />
       <h4>Subject</h4>
-      <Dropdown label="Subject" options={["Math", "Science", "History"]}/>
+      <Dropdown label="Subject" options={["Math", "Science", "History"]} />
       <h4>Focus Area</h4>
       <input type="text" />
       <h4>Grade Level</h4>
@@ -49,6 +87,7 @@ export default function GeneratorForm() {
           setValue={setValue}
         />
       </div>
+      <input type="submit" />
     </form>
   );
 }

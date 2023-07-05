@@ -14,9 +14,6 @@ type PriceCardProps = {
 }
 
 export default function PriceCard({name, price, features, img, alt, border, background, text}: PriceCardProps) {
-    const border = color ? `border-${color}-600` : "border-gray-600";
-    const background = color ? `bg-${color}-600` : "bg-gray-600";
-    const text = color ? `text-${color}-600` : "text-gray-600";
     return(
         <div className={`w-70 h-96 text-center rounded-xl ${border} border-4 border-solid`}>
             <img src={img} alt={alt} className="h-40"/>

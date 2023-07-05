@@ -9,123 +9,31 @@ import TestBlock from "./TestBlock";
 import GeneratorForm from "components/forms/GeneratorForm";
 import upArrow from "assets/upArrow.svg";
 import downArrow from "assets/downArrow.svg";
-/*
-  FETCH SENDS THE FOLLOWING:
-  {
-  "id": 0,
-  "testName": "string",
-  "text": "string",
-  "questions": [
-    {
-      "text": " What is the main function of a cell?",
-      "answers": [
-        {
-          "text": "Atom",
-          "isCorrect": false
-        },
-        {
-          "text": "Molecule",
-          "isCorrect": false
-        },
-        {
-          "text": "Cell",
-          "isCorrect": true
-        },
-        {
-          "text": "Virus",
-          "isCorrect": false
-        }
-      ]
-    },
-    {
-      "text": What is the reproduction function of a cell?",
-      "answers": [
-        {
-          "text": "Reproduce",
-          "isCorrect": true
-        },
-        {
-          "text": "Store energy",
-          "isCorrect": false
-        },
-        {
-          "text": "Move",
-          "isCorrect": false
-        },
-        {
-          "text": "Communicate",
-          "isCorrect": false
-        }
-      ]
-    }
-  ]
-}
 
-*/ 
 export default function TestDisplay() {
   const [testName, setTestName] = useState("Test Name");
   const [testText, setTestText] = useState("Test Text");
   const [testBlocks, setTestBlocks] = useState<Question[]>([]);
   const { postRequest } = usePostRequest();
   const { getRequest } = useGetRequest();
-
-  const questions = [
-    {
-      "text": " What is the main function of a cell?",
-      "answers": [
-        {
-          "text": "Atom",
-          "isCorrect": false
-        },
-        {
-          "text": "Molecule",
-          "isCorrect": false
-        },
-        {
-          "text": "Cell",
-          "isCorrect": true
-        },
-        {
-          "text": "Virus",
-          "isCorrect": false
-        }
-      ]
-    },
-    {
-      "text": "what is the reproduction function of a cell?",
-      "answers": [
-        {
-          "text": "Reproduce",
-          "isCorrect": true
-        },
-        {
-          "text": "Store energy",
-          "isCorrect": false
-        },
-        {
-          "text": "Move",
-          "isCorrect": false
-        },
-        {
-          "text": "Communicate",
-          "isCorrect": false
-        }
-      ]
-    }
-  ] as Question[];
+  const tempResponse = `{"TestName":"4th Grade Geometry Test","TestDescription":"A 4/10 difficulty test on Geometry for 4th grade students","Topic":"Geometry","Questions":[{"QuestionText":"What is the sum of the interior angles of a triangle?","Answers":[{"AnswerText":"180 degrees","IsCorrect":true},{"AnswerText":"90 degrees","IsCorrect":false},{"AnswerText":"360 degrees","IsCorrect":false},{"AnswerText":"270 degrees","IsCorrect":false}]},{"QuestionText":"What is the area of a square with a side length of 4?","Answers":[{"AnswerText":"16","IsCorrect":true},{"AnswerText":"2","IsCorrect":false},{"AnswerText":"8","IsCorrect":false},{"AnswerText":"4","IsCorrect":false}]}]}`
 
   useEffect(() => {
     getRequest("test/1").then((data) => {
       if(data === undefined || data === null) {
         return;
       }
-      setTestName(data.value.testName);
-      setTestText(data.value.text);
-      setTestBlocks(data.value.questions);
+      // setTestName(data.value.testName);
+      // setTestText(data.value.text);
+      // setTestBlocks(data.value.questions);
     });
 
-    //temp population for testing
-    setTestBlocks(questions);
+    //temp populating test
+    const test = JSON.parse(tempResponse) as Test;
+    console.log(test);
+    setTestName(test.TestName);
+    setTestText(test.TestDescription);
+    setTestBlocks(test.Questions as Question[]);
   }, []);
 
   //function for saving the test
@@ -143,8 +51,8 @@ export default function TestDisplay() {
     setTestBlocks([
       ...testBlocks,
       {
-        text: "Question Here",
-        answers: [{text: "Answer Here", isCorrect: false}],
+        QuestionText: "Question Here",
+        Answers: [{AnswerText: "Answer Here", IsCorrect: false}],
       },
     ]);
   };
@@ -175,8 +83,8 @@ export default function TestDisplay() {
                 </button>
               )}
               <TestBlock
-                text={testBlock.text}
-                answers={testBlock.answers}
+                text={testBlock.QuestionText}
+                answers={testBlock.Answers}
                 questionNumber={index + 1}
                 testBlocks={testBlocks}
                 setTestBlocks={setTestBlocks}
