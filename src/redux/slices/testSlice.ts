@@ -21,9 +21,12 @@ export const testSlice = createSlice({
         setTest: (state, action: PayloadAction<Test>) => {
             state.currentTest = action.payload;
         },
+        setTestBlock: (state, action: PayloadAction<Question[]>) => {
+            state.currentTest.Questions = action.payload;
+        }
     },
 });
 
-export const { setTest } = testSlice.actions;
+export const { setTest, setTestBlock } = testSlice.actions;
 
 export default testSlice.reducer;
